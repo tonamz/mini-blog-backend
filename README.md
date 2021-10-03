@@ -19,6 +19,101 @@ Thank you for considering contributing to Lumen! The contribution guide can be f
 
 If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
+### Setup
+---
+Clone the repo and follow below steps.
+1. Run `composer install`
+2. Copy `.env.example` to `.env` Example for linux users : `cp .env.example .env`
+3. Set `APP_KEY`, `JWT_SECRET`, and  `JWT_EXPIRE_HOUR` on `.env`
+4. Set valid database credentials of env variables `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD`
+5. Run `php artisan migrate`
+6. Run `php artisan db:seed`
+7. Run the command `php -S localhost:8000 -t public`
+
 ## License
 
 The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Documentation
+
+
+User/Author
+____________________________
+
+Login
+
+HTTP request
+POST http://localhost:8000/api/user/login
+
+Request headers
+- Content-Type application/json
+
+Request body
+- Json
+{
+    "username": "",
+    "password": ""
+}
+
+
+Article
+____________________________
+
+Add Article
+
+HTTP request
+POST http://localhost:8000/api/article/add
+
+Request headers
+- Authorization {api_token from login}
+- Content-Type application/json
+
+Request body
+- Json
+{
+    "name":"",
+    "status":"",
+    "content":"",
+    "category":""
+}
+
+___
+
+Edit Article
+
+HTTP request
+PUT http://localhost:8000/api/article/edit/{id}
+
+Request headers
+- Authorization {api_token from login}
+- Content-Type application/json
+
+Request body
+- Json
+{
+    "name":"",
+    "status":"",
+    "content":"",
+    "category":""
+}
+
+___
+
+Delete Article
+
+HTTP request
+DELETE http://localhost:8000/api/article/delete/{id}
+
+Request headers
+- Authorization {api_token from login}
+- Content-Type application/json
+
+___
+
+Get Articles
+
+HTTP request
+GET http://localhost:8000/api/articles
+
+
