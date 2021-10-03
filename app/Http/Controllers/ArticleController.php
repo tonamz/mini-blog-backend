@@ -45,6 +45,40 @@ class ArticleController extends Controller
         return $this->responseRequestSuccess($article);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Edit Articles
+    |--------------------------------------------------------------------------
+     */
+    public function editArticle(Request $request){
+        // Validator
+        $this->validate($request, [
+            'name' => 'required',
+            'status' => 'required|numeric',
+            'content' => 'required',
+            'category' => 'required|numeric',
+        ]);
+
+        $article = Articles::where('id',  $request->id)->first();
+
+        //Check author of article
+        if(!empty($article) && $article->author == $request->auth->id){
+            //Edit article
+            $article->update([
+                'name' => $request->name,
+                'status' => $request->status,
+                'content' => $request->content,
+                'category' => $request->category,
+            ]);
+
+            return $this->responseRequestSuccess($article);
+        }elseif(empty($article)){
+            return $this->responseRequestError("Article not Found");
+        }else{
+            return $this->responseRequestError("Unauthorized");
+        }
+    }
+
      /*
     |--------------------------------------------------------------------------
     | Response success
