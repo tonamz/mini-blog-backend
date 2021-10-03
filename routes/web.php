@@ -16,3 +16,21 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'api/user'], function ($router) {
+    // Users
+    $router->post('login', 'UserController@login');
+});
+
+$router->group(['prefix' => 'api/article', 'middleware' => 'jwt.auth'], function ($router) {
+    // Article
+    $router->post('add', 'ArticleController@addArticle');
+    $router->put('edit/{id}', 'ArticleController@editArticle');
+    $router->delete('delete/{id}', 'ArticleController@deleteArticle');
+});
+
+$router->group(['prefix' => 'api/articles'], function ($router) {
+    // Articles
+    $router->get('', 'ArticleController@getArticles');
+});
+
