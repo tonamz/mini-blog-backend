@@ -79,6 +79,27 @@ class ArticleController extends Controller
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Delete Article
+    |--------------------------------------------------------------------------
+     */
+    public function deleteArticle(Request $request){
+
+        $article = Articles::where('id',  $request->id)->first();
+
+        //Check author of article
+        if(!empty($article) && $article->author == $request->auth->id){
+            //Delete article
+            $article->delete();
+            return $this->responseRequestSuccess($article);
+        }elseif(empty($article)){
+            return $this->responseRequestError("Article not Found");
+        }else{
+            return $this->responseRequestError("Unauthorized");
+        }
+    }
+
      /*
     |--------------------------------------------------------------------------
     | Response success
