@@ -30,7 +30,6 @@ class ArticleController extends Controller
             'status' => 'required|numeric',
             'content' => 'required',
             'category' => 'required|numeric',
-            'author' => 'required|numeric',
         ]);
 
         //Create article
@@ -39,7 +38,7 @@ class ArticleController extends Controller
             'status' => $request->status,
             'content' => $request->content,
             'category' => $request->category,
-            'author' => $request->author,
+            'author' => $request->auth->id,
         ]);
 
         return $this->responseRequestSuccess($article);
