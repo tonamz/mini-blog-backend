@@ -28,3 +28,9 @@ $router->group(['prefix' => 'api/article', 'middleware' => 'jwt.auth'], function
     $router->put('edit/{id}', 'ArticleController@editArticle');
     $router->delete('delete/{id}', 'ArticleController@deleteArticle');
 });
+
+$router->group(['prefix' => 'api/articles'], function ($router) {
+    // Articles
+    $router->get('', 'ArticleController@getArticles');
+});
+

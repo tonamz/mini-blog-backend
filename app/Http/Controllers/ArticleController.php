@@ -100,6 +100,22 @@ class ArticleController extends Controller
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Delete Articles
+    |--------------------------------------------------------------------------
+     */
+    public function getArticles(Request $request){
+
+        if(!empty($request->limit)){
+            $article = Articles::limit($request->limit)->get();
+        }else{
+            $article = Articles::all();
+        }
+
+        return $this->responseRequestSuccess(ArticlesResource::collection($article));
+    }
+
      /*
     |--------------------------------------------------------------------------
     | Response success
